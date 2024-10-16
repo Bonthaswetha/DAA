@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+int A[50], n;
+void QuickSort(int low, int high);
+int Partition(int low, int high);
+void Interchange(int x, int y);
+void main() {
+    printf("Enter the number of elements ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
+    }
+    QuickSort(0, n - 1);
+    printf("Sorted list:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", A[i]);
+    }
+}
+void QuickSort(int low, int high) {
+    int j;
+    if (low < high) { 
+        j = Partition(low, high);
+        QuickSort(low, j - 1);
+        QuickSort(j + 1, high); 
+    }
+}
+int Partition(int low, int high) {
+    int pivot = A[low];
+    int i = low + 1; 
+    int j = high; 
+    while (i <= j) {
+        while (i <= high && A[i] < pivot) 
+        i++;
+        while (j > low && A[j] > pivot)
+        j--; 
+
+        if (i < j) {
+            Interchange(i, j);
+        }
+    }
+    Interchange(low, j); 
+    return j; 
+}
+void Interchange(int x, int y) {
+    int temp = A[x];
+    A[x] = A[y];
+    A[y] = temp;
+}
+
+
+
+
+
+output:
+Enter the number of elements 5
+7 6 8 9 4 
+Sorted list:
+4 6 7 8 9
