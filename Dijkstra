@@ -1,0 +1,92 @@
+#include <stdio.h>
+int cost[10][10];
+void Dijkstra(int,int);
+void main()
+{
+    int i,j,n,u;
+    printf("Enter no of vertices:");
+    scanf("%d",&n);
+    printf("\nenter the cost matrix:\nenter 9999 if there is no edge between the vertics\n");
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+        scanf("%d",&cost[i][j]);
+    printf("\nenter the starting node:");
+    scanf("%d",&u);
+    Dijkstra(n,u);
+}
+void Dijkstra(int n, int startnode)
+{
+    int distance[10];
+    int visited[10],mindistance,nextnode,i,j,count;
+    for(i=0;i<n;i++)
+    {
+        distance[i]=cost[startnode][i];
+        visited[i]=0;
+        
+    }
+    distance[startnode]=0;
+    visited[startnode]=1;
+    count=1;
+    while(count<n-1);
+    {
+        mindistance=9999;
+        for(i=0;i<n;i++)
+        if(distance[i]<mindistance&&!visited[i])
+        {
+            mindistance=distance[i];
+            nextnode=i;
+            
+        }
+        visited[nextnode]=1;
+          for(i=0;i<n;i++)
+            if(!visited[i])
+            if(mindistance + cost[nextnode][i]<distance[i])
+            {
+                distance[i]=mindistance+cost[nextnode][i];
+                
+            }
+            count++;
+            
+    }
+      for(i=0;i<n;i++)
+      if(i!=startnode)
+      printf("\ndistance from node%d to node%d=%d", startnode,i,distance[i]);
+    
+    
+    
+}
+
+
+
+
+
+
+
+******************************************************************
+output:
+
+
+Eneter number of vertices 
+6
+Eneter cost matrix
+ 
+999      50       10       999       45      999
+
+ 999     999       15       999       10     999 
+
+ 20       999       999      15       999    999 
+
+ 999     20         999       999       35     3
+
+ 999   999       999        30        999    999 
+
+ 999    999       999       999       999    999
+
+Enter source vertex
+0
+Distance of node 1 is 10
+Path : 20
+Distance of node 2 is 25
+Path : 320
+****************************************************************
+    
