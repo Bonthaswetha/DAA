@@ -1,0 +1,76 @@
+#include<stdio.h>
+int n,cost[10][10];
+void prim();
+void main(){
+    int i,j;
+    printf("\nEnetr vertices:");
+    scanf("%d",&n);
+    printf("enter cost matrioix:\n");
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++)
+        {
+            scanf("%d",&cost[i][j]);
+        }
+    }
+    prim();
+}
+void prim()
+{
+    int i,j,sv,ev;
+    int k,ne[10],temp,mc=0,t[10][2];
+    for(i=0;i<n;i++)
+    {
+        ne[i]=-1;
+    }
+    temp=cost[0][0];
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            if(cost[i][j]<temp){
+                temp=cost[i][j];
+                sv=i;
+                ev=j;
+            }
+        }
+    }
+    t[0][0]=sv;
+    t[0][1]=ev;
+    mc=cost[sv][ev];
+    ne[sv]=100;
+    ne[ev]=100;
+    for(i=0;i<n;i++){
+        if(ne[i]!=100){
+            if(cost[i][sv]<cost[i][ev]){
+                ne[i]=sv;
+            }
+            else{
+                ne[i]=ev;
+            }
+        }
+    }
+    temp=999;
+    for(i=1;i<n-1;i++){
+        for(j=0;j<n;j++){
+            if(ne[j]!=100&&cost[j][ne[j]]<temp){
+                temp=cost[j][ne[j]];
+                k=j;
+            }
+        }
+        t[i][0]=k;
+        t[i][1]=ne[k];
+        mc=mc+cost[k][ne[k]];
+        ne[k]=100;
+        for(j=0;j<n;j++){
+            if(ne[j]!=100&&cost[j][ne[j]]>cost[j][k]){
+                ne[j]=k;
+            }
+        }
+        temp=999;
+    }
+    printf("\nmin spanning treee is \n");
+    for(i=0;i<n-1;i++){
+        for(j=0;j<2;j++){
+            printf("%d",t[i][j]);
+        }printf("\n");
+    }
+    printf("\n min cost:%d",mc);
+}
