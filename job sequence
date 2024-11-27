@@ -1,0 +1,72 @@
+#include<stdio.h>
+int n, p[20], d[20], j[20];
+void main()
+{
+    int i,  k, total;
+    clrscr();
+    printf("Enter no of jobs\n");
+    scanf("%d", &n);
+    printf("Enter profit & dead line\n");
+   for( i=1; i<=n;  i++)
+    {
+	scanf("%d%d", &p[i], &d[i]);
+    }
+k = js( d, j, n );  
+   printf("jobs after sorting\n");
+   printf(“job_no   profit    deadline\n");
+   for(i=1;i<=n;i++)
+  { 
+       printf("%d  %d  %d\n",i,p[i],d[i]);
+   }
+  printf("Jobs processing sequence for maximum profit\n");
+ printf(“( Sequence is with respect to the sorted list)");
+  total=0;
+  for( i=1; i<=k;  i++)
+  {
+  printf("p%d  ", j[i] );
+  total = total + p[ j[i] ] ;
+  }
+  printf("Total profit = %d", total);  
+}  // main end
+
+int js( int d[ ], int j[ ], int n )
+{   int temp,i,k, r, q;
+  for( i=1; i<n; i++)    // Sorting jobs in decreasing order of profit 
+  {
+      for( k=1; k<n; k++)
+      {
+	if( p[k] < p[k+1] )
+	{                   temp = p[k];
+		       p[k] = p[k+1];
+		       p[k+1] = temp;
+ 	                      temp = d[k];
+		       d[k] = d[k+1];
+		       d[k+1] = temp;
+               }
+      }
+     }
+d[0] = j[0] = 0;
+	j[1] = 1;
+	k = 1;
+	for( i=2; i<=n; i++)
+	{
+		r=k;
+		while( d[ j[r] ] > d[ i ] && d[ j[r] ] != r )
+		{  
+			r = r -1;
+                     }
+                     
+if(  d[i] > r )
+		 {
+		   	 for( q=k;  q>= r +1 ; q--)
+		   	 {
+				j[ q+1 ] = j[ q ];
+		    	  }
+
+		       j[ r+1 ] = i;
+
+		       k++;
+	              } 
+       }  //  for end
+return k;
+}
