@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+int g[10][10], m, n, x[10];
+
+void mcoloring(int k) {
+    if (k > n) {
+        for (int i = 1; i <= n; i++) printf("%d ", x[i]);
+        printf("\n");
+        return;
+    }
+
+    for (x[k] = 1; x[k] <= m; x[k]++) {
+        int valid = 1;
+        for (int j = 1; j <= n; j++) {
+            if (g[k][j] && x[k] == x[j]) {
+                valid = 0;
+                break;
+            }
+        }
+        if (valid) mcoloring(k + 1);
+    }
+}
+
+int main() {
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+    printf("Enter adjacency matrix:\n");
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            scanf("%d", &g[i][j]);
+
+    printf("Enter number of colors: ");
+    scanf("%d", &m);
+    mcoloring(1);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+****************************************************
+
+Enter number of nodes: 4
+Enter adjacency matrix:
+0 1 0 1
+1 0 1 0
+0 1 0 1
+1 0 1 0
+Enter number of colors: 2
+1 2 1 2 
+2 1 2 1 
