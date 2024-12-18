@@ -1,0 +1,27 @@
+#include stdio.h 
+#define MAX 10
+#define INF 9999
+
+void main() {
+    int w[MAX][MAX] = {0}, c[MAX][MAX] = {0}, r[MAX][MAX] = {0};
+    int p[MAX], q[MAX], n, i, j, k, m, min, temp;
+
+    printf(Enter number of elements );
+    scanf(%d, &n);
+
+    for (i = 1; i = n; i++) { printf(p%d , i); scanf(%d, &p[i]); }
+    for (i = 0; i = n; i++) { printf(q%d , i); scanf(%d, &q[i]); w[i][i] = q[i]; printf(W[%d][%d]=%dn, i, i, w[i][i]); }
+
+    for (m = 1; m = n; m++) {
+        for (i = 0; i = n - m; i++) {
+            j = i + m;
+            w[i][j] = w[i][j - 1] + p[j] + q[j];
+            for (min = INF, k = i + 1; k = j; k++) {
+                int cost = c[i][k - 1] + c[k][j] + w[i][j];
+                if (cost  min) min = cost, temp = k;
+            }
+            c[i][j] = min, r[i][j] = temp;
+            printf(W[%d][%d]=%d C[%d][%d]=%d R[%d][%d]=%dn, i, j, w[i][j], i, j, c[i][j], i, j, r[i][j]);
+        }
+    }
+    printf(Minimum cost %dnRoot %dn, c[0][n], r[0][n]);
